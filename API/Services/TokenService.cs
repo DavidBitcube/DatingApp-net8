@@ -1,13 +1,11 @@
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using API.Entities;
-using API.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace API.Services;
+namespace API;
 
 public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService
 {
@@ -33,8 +31,8 @@ public class TokenService(IConfiguration config, UserManager<AppUser> userManage
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(claims), 
-            Expires = DateTime.UtcNow.AddMonths(2),
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = creds
         };
 

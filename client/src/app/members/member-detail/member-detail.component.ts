@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { MembersService } from '../../_services/members.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from '../../_models/member';
 import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
@@ -26,7 +25,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   private accountService = inject(AccountService);
   presenceService = inject(PresenceService);
   private route = inject(ActivatedRoute);
-  private router= inject(Router)
+  private router = inject(Router);
   member: Member = {} as Member;
   images: GalleryItem[] = [];
   activeTab?: TabDirective;

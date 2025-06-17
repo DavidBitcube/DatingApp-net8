@@ -29,7 +29,7 @@ public static class IdentityServiceExtensions
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
                     ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateAudience = false
                 };
 
                 options.Events = new JwtBearerEvents
@@ -53,6 +53,6 @@ public static class IdentityServiceExtensions
             .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
             .AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
         
-        return services; 
+        return services;
     }
 }

@@ -51,7 +51,7 @@ public class MessageRepository(DataContext context, IMapper mapper) : IMessageRe
             .FirstOrDefaultAsync(x => x.Name == groupName);
     }
 
-    public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams) 
+    public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
     {
         var query = context.Messages
             .OrderByDescending(x => x.MessageSent)

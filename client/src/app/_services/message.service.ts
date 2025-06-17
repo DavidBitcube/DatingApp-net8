@@ -78,7 +78,7 @@ export class MessageService {
   }
 
   async sendMessage(username: string, content: string) {
-    return this.hubConnection?.invoke('SendMessage', {recipientUsername: username, content})
+    return this.hubConnection?.invoke('SendMessage', {recipientsUsername: username, content})
   }
 
   deleteMessage(id: number) {

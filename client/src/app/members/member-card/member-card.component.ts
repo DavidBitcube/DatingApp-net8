@@ -9,19 +9,19 @@ import { PresenceService } from '../../_services/presence.service';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './member-card.component.html',
-  styleUrl: './member-card.component.css',
+  styleUrl: './member-card.component.css'
 })
 export class MemberCardComponent {
   private likeService = inject(LikesService);
   private presenceService = inject(PresenceService);
   member = input.required<Member>();
-  hasLikes = computed(() => this.likeService.likeIds().includes(this.member().id));
+  hasLiked = computed(() => this.likeService.likeIds().includes(this.member().id));
   isOnline = computed(() => this.presenceService.onlineUsers().includes(this.member().username));
 
   toggleLike() {
     this.likeService.toggleLike(this.member().id).subscribe({
       next: () => {
-        if (this.hasLikes()) {
+        if (this.hasLiked()) {
           this.likeService.likeIds.update(ids => ids.filter(x => x !== this.member().id))
         } else {
           this.likeService.likeIds.update(ids => [...ids, this.member().id])

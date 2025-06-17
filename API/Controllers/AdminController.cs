@@ -1,5 +1,6 @@
 using API.Controllers;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API;
 
-public class AdminController(UserManager<AppUser> userManager) : BaseApiController
+public class AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork) : BaseApiController
 {
     [Authorize(Policy = "RequireAdminRole")]
     [HttpGet("users-with-roles")]
@@ -15,7 +16,7 @@ public class AdminController(UserManager<AppUser> userManager) : BaseApiControll
     {
         var users = await userManager.Users
             .OrderBy(x => x.UserName)
-            .Select(x => new 
+            .Select(x => new
             {
                 x.Id,
                 Username = x.UserName,
@@ -46,7 +47,7 @@ public class AdminController(UserManager<AppUser> userManager) : BaseApiControll
         result = await userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
 
         if (!result.Succeeded) return BadRequest("Failed to remove from roles");
-        
+
         return Ok(await userManager.GetRolesAsync(user));
     }
 
